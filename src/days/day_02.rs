@@ -12,13 +12,9 @@ fn parse_input() -> Vec<Vec<i32>> {
 pub fn part1() -> Result<i32, Box<dyn Error>> {
     let input = parse_input();
 
-    let result = input
-        .iter()
-        .map(|level| is_level_safe(level))
-        .map(|b| b as i32)
-        .sum();
+    let result = input.iter().filter(|level| is_level_safe(level)).count();
 
-    Ok(result)
+    Ok(result as i32)
 }
 
 fn is_level_safe(level: &Vec<i32>) -> bool {
@@ -43,17 +39,16 @@ pub fn part2() -> Result<i32, Box<dyn Error>> {
 
     let result = input
         .iter()
-        .map(|level| {
+        .filter(|level| {
             (0..level.len()).any(|i| {
-                let mut damp_level = level.clone();
+                let mut damp_level = (*level).clone();
 
                 damp_level.remove(i);
 
                 is_level_safe(&damp_level)
             })
         })
-        .map(|b| b as i32)
-        .sum();
+        .count();
 
-    Ok(result)
+    Ok(result as i32)
 }
