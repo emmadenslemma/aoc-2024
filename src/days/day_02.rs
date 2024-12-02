@@ -1,7 +1,5 @@
-use std::{error::Error, fs::read_to_string};
-
 fn parse_input() -> Vec<Vec<i32>> {
-    let input = read_to_string("inputs/day_02.txt").unwrap();
+    let input = std::fs::read_to_string("inputs/day_02.txt").unwrap();
 
     input
         .lines()
@@ -9,12 +7,11 @@ fn parse_input() -> Vec<Vec<i32>> {
         .collect()
 }
 
-pub fn part1() -> Result<i32, Box<dyn Error>> {
-    let input = parse_input();
-
-    let result = input.iter().filter(|level| is_level_safe(level)).count();
-
-    Ok(result as i32)
+pub fn part1() -> i32 {
+    parse_input()
+        .iter()
+        .filter(|level| is_level_safe(level))
+        .count() as i32
 }
 
 fn is_level_safe(level: &Vec<i32>) -> bool {
@@ -34,10 +31,8 @@ fn is_level_safe(level: &Vec<i32>) -> bool {
     })
 }
 
-pub fn part2() -> Result<i32, Box<dyn Error>> {
-    let input = parse_input();
-
-    let result = input
+pub fn part2() -> i32 {
+    parse_input()
         .iter()
         .filter(|level| {
             (0..level.len()).any(|i| {
@@ -48,7 +43,5 @@ pub fn part2() -> Result<i32, Box<dyn Error>> {
                 is_level_safe(&damp_level)
             })
         })
-        .count();
-
-    Ok(result as i32)
+        .count() as i32
 }
