@@ -10,8 +10,8 @@ fn parse_input() -> (Vec<i32>, Vec<i32>) {
         .lines()
         .map(|l| l.split("   ").collect::<Vec<&str>>())
         .for_each(|v| {
-            let a = v[0].parse::<i32>().unwrap();
-            let b = v[1].parse::<i32>().unwrap();
+            let a = v[0].parse().unwrap();
+            let b = v[1].parse().unwrap();
 
             left.push(a);
             right.push(b);
@@ -35,8 +35,8 @@ pub fn part2() -> Result<i32, Box<dyn Error>> {
     let (left, right) = parse_input();
 
     let result = left
-        .into_iter()
-        .map(|x| right.iter().fold(0, |n, y| if &x == y { n + 1 } else { n }) * x)
+        .iter()
+        .map(|x| right.iter().fold(0, |n, y| if x == y { n + 1 } else { n }) * x)
         .sum();
 
     Ok(result)
