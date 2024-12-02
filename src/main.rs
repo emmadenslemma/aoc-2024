@@ -1,4 +1,6 @@
-mod day_01;
+mod days;
+
+use days::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("{}", day_01::part1()?);
