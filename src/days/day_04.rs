@@ -89,14 +89,8 @@ fn can_word_be_xmas(w: &String) -> bool {
 
 fn is_word_x_mas(v: &Vec<Vec<char>>, x: usize, y: usize) -> bool {
     v[x][y] == 'A'
-        && (v[x - 1][y - 1] == 'M' || v[x - 1][y - 1] == 'S')
-        && (v[x - 1][y + 1] == 'M' || v[x - 1][y + 1] == 'S')
-        && (v[x + 1][y - 1] == 'M' || v[x + 1][y - 1] == 'S')
-        && (v[x + 1][y + 1] == 'M' || v[x + 1][y + 1] == 'S')
-        && ((v[x - 1][y - 1] == v[x - 1][y + 1] // Vertical split
-            && v[x + 1][y - 1] == v[x + 1][y + 1]
-            && v[x - 1][y - 1] != v[x + 1][y - 1])
-            || (v[x - 1][y - 1] == v[x + 1][y - 1] // Horizontal split
-                && v[x - 1][y + 1] == v[x + 1][y + 1]
-                && v[x - 1][y - 1] != v[x - 1][y + 1]))
+        && ((v[x - 1][y - 1] == 'M' && v[x + 1][y + 1] == 'S')
+            || (v[x - 1][y - 1] == 'S' && v[x + 1][y + 1] == 'M'))
+        && ((v[x + 1][y - 1] == 'M' && v[x - 1][y + 1] == 'S')
+            || (v[x + 1][y - 1] == 'S' && v[x - 1][y + 1] == 'M'))
 }
