@@ -41,12 +41,11 @@ impl Direction {
 
     fn forward(&self, (x, y): (usize, usize)) -> Option<(usize, usize)> {
         use Direction::*;
-        // Yes, this is taking the inverted values into account
         Some(match self {
-            Right => (x, y + 1),
-            Down => (x + 1, y),
-            Left => (x, y.checked_sub(1)?),
-            Up => (x.checked_sub(1)?, y),
+            Right => (x + 1, y),
+            Down => (x, y + 1),
+            Left => (x.checked_sub(1)?, y),
+            Up => (x, y.checked_sub(1)?),
         })
     }
 }
@@ -72,12 +71,17 @@ struct Map {
 
 impl From<&str> for Map {
     fn from(s: &str) -> Self {
+        let width = s.find('\n').unwrap();
+        let mut entities = vec![vec![]; width];
+
+        s.replace('\n', "")
+            .chars()
+            .map(|c| Entity::from(c))
+            .enumerate()
+            .for_each(|(x, e)| entities[x % width].push(e));
+
         let mut map = Map {
-            entities: s
-                .lines()
-                // Oopsie! This line inverts X and Y!
-                .map(|l| l.chars().map(|c| Entity::from(c)).collect())
-                .collect(),
+            entities,
             ..Default::default()
         };
 

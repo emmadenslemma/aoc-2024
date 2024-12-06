@@ -1,5 +1,3 @@
-
-
 fn get_input() -> (Vec<(i32, i32)>, Vec<Vec<i32>>) {
     let input = std::fs::read_to_string("inputs/day_05.txt").unwrap();
 
