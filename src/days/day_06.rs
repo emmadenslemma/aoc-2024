@@ -1,3 +1,5 @@
+use rayon::prelude::*;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum Entity {
     Empty,
@@ -174,22 +176,23 @@ pub fn part1() -> i32 {
 pub fn part2() -> i32 {
     let map = get_input();
 
-    let mut loop_count = 0;
+    (0..map.map_width())
+        .into_par_iter()
+        .map(|x| {
+            (0..map.map_height())
+                .into_par_iter()
+                .filter(|y| {
+                    let mut cur_map = map.clone();
 
-    for x in 0..map.map_width() {
-        for y in 0..map.map_height() {
-            let mut cur_map = map.clone();
-            if cur_map.entities[x][y] == Entity::Empty {
-                cur_map.entities[x][y] = Entity::Obstacle;
-            } else {
-                continue;
-            }
+                    if cur_map.entities[x][*y] == Entity::Empty {
+                        cur_map.entities[x][*y] = Entity::Obstacle;
 
-            if cur_map.move_to_end() == MoveResult::Looped {
-                loop_count += 1;
-            }
-        }
-    }
+                        return cur_map.move_to_end() == MoveResult::Looped;
+                    }
 
-    loop_count
+                    false
+                })
+                .count()
+        })
+        .sum::<usize>() as i32
 }
