@@ -1,8 +1,10 @@
+use rayon::prelude::*;
+
 fn get_input() -> Vec<(i64, Vec<i32>)> {
     let input = std::fs::read_to_string("inputs/day_07.txt").unwrap();
 
     input
-        .lines()
+        .par_lines()
         .map(|l| l.split(": "))
         .map(|mut spliterator| {
             let result = spliterator.next().unwrap().parse().unwrap();
@@ -57,7 +59,7 @@ pub fn part1() -> i64 {
     let input = get_input();
 
     input
-        .iter()
+        .par_iter()
         .filter(|(result, numbers)| {
             calc_recursively(*result, numbers[0] as i64, &numbers[1..], false)
         })
@@ -69,7 +71,7 @@ pub fn part2() -> i64 {
     let input = get_input();
 
     input
-        .iter()
+        .par_iter()
         .filter(|(result, numbers)| {
             calc_recursively(*result, numbers[0] as i64, &numbers[1..], true)
         })
