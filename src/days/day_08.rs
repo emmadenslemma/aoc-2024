@@ -3,11 +3,7 @@ use std::collections::HashMap;
 use itertools::Itertools;
 
 struct Map {
-    // Wow I really thought I was gonna need that
-    #[allow(dead_code)]
     // X and Y are inverted for performance/simplicity's sake.
-    // index via `self.antennas[y][x]`
-    antennas: Vec<Vec<char>>,
     frequencies: HashMap<char, Vec<(i32, i32)>>,
     height: i32,
     width: i32,
@@ -39,7 +35,6 @@ impl Map {
             frequencies,
             height: antennas.len() as i32,
             width: antennas[0].len() as i32,
-            antennas,
         }
     }
 
