@@ -10,6 +10,7 @@ mod day_09;
 mod day_10;
 mod day_11;
 mod day_12;
+mod day_13;
 
 pub fn run_solution(day: i32) -> (i64, i64) {
     match day {
@@ -25,6 +26,7 @@ pub fn run_solution(day: i32) -> (i64, i64) {
         10 => (day_10::part1(), day_10::part2()),
         11 => (day_11::part1(), day_11::part2()),
         12 => (day_12::part1(), day_12::part2()),
+        13 => (day_13::part1(), day_13::part2()),
         _ => panic!(),
     }
 }
